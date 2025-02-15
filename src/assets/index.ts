@@ -1,0 +1,9 @@
+export * as logo from "./logo.svg";
+export * as activeAdd from "./active-add.svg";
+export * as inactiveAdd from "./inactive-add.svg";
+export * as activeList from "./active-list.svg";
+export * as inactiveList from "./inactive-list.svg";
+export * as alarm from "./alarm.svg";
+export * as chat from "./chat.svg";
+export * as light from "./sun.svg";
+export * as arrowDown from "./arrow-down.svg";
