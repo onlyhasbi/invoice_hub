@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Roboto } from "next/font/google";
 import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
+
 import "./globals.css";
 import theme from "./theme";
 
@@ -30,11 +31,11 @@ export default function RootLayout({
       <body className={roboto.variable}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <div className="flex items-start min-h-screen bg-white">
+            <div className="min-h-screen bg-white">
               <Sidebar />
-              <div className="flex-1 flex flex-col justify-start">
+              <div className="ml-auto w-[calc(100vw-242px)] flex-1 flex flex-col justify-start">
                 <Topbar />
-                <div className="pt-[52px] pl-[136px] bg-softBlue min-h-[calc(100vh-64px)]">
+                <div className="mt-[72px] py-[52px] px-[136px] bg-softBlue min-h-[calc(100vh-64px)]">
                   {children}
                 </div>
               </div>

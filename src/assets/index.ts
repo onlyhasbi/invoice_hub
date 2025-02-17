@@ -7,3 +7,6 @@ export * as alarm from "./alarm.svg";
 export * as chat from "./chat.svg";
 export * as light from "./sun.svg";
 export * as arrowDown from "./arrow-down.svg";
+export * as check from "./check.svg";
+export * as close from "./close.svg";
+export * as search from "./search.svg";

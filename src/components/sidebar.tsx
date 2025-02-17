@@ -11,6 +11,7 @@ import {
   logo,
 } from "../assets";
 import { useColorScheme } from "@mui/material";
+import { openSans } from "../constants/fonts";
 
 function Sidebar() {
   const currentPath = usePathname();
@@ -18,7 +19,7 @@ function Sidebar() {
 
   return (
     <div
-      className={`w-[242px] min-h-screen flex flex-col items-start pl-[38px] justify-start gap-9 ${
+      className={`w-[242px] z-50 fixed min-h-screen flex flex-col items-start pl-[38px] justify-start gap-9 ${
         mode !== "dark" ? "bg-deepBlue" : "bg-slate-700"
       }`}
     >
@@ -29,7 +30,7 @@ function Sidebar() {
         alt="logo"
         className="py-7"
       />
-      <div className="space-y-4">
+      <div className={`space-y-4 ${openSans.className}`}>
         <span className="text-disabled">MENU</span>
         <ul className="flex flex-col gap-8">
           {[
