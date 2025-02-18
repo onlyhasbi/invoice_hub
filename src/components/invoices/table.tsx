@@ -73,7 +73,13 @@ export default function Table({
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        className={
+                          data.length === index + 1 ? "!border-b-0" : ""
+                        }
+                      >
                         {column.format ? column.format(value) : value}
                       </TableCell>
                     );

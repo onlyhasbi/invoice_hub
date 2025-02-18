@@ -35,7 +35,7 @@ export default function RootLayout({
               <Sidebar />
               <div className="ml-auto w-[calc(100vw-242px)] flex-1 flex flex-col justify-start">
                 <Topbar />
-                <div className="mt-[72px] py-[52px] px-[136px] bg-softBlue min-h-[calc(100vh-64px)]">
+                <div className="box-border mt-[72px] py-[52px] px-[136px] bg-softBlue min-h-[calc(100vh-72px)]">
                   {children}
                 </div>
               </div>

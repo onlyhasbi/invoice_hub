@@ -9,7 +9,7 @@ function Topbar() {
   const { setMode } = useColorScheme();
 
   return (
-    <div className="w-[calc(100vw-242px)] fixed flex bg-white h-[72px] items-center max-h-20 p-4 justify-end gap-7">
+    <div className="box-border w-[calc(100vw-242px)] fixed flex bg-white h-[72px] items-center max-h-20 p-4 justify-end gap-7">
       <IOSSwitch
         onChange={(e) => setMode(e.target.checked ? "dark" : "light")}
       />
