@@ -1,6 +1,7 @@
 "use client";
 
 import { hamburger, search } from "@/src/assets";
+import Loading from "@/src/components/invoices/loading";
 import Table, { ColumnDef } from "@/src/components/invoices/table";
 import { openSans } from "@/src/constants/fonts";
 import { statusColor } from "@/src/constants/status";
@@ -24,7 +25,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/id";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, Suspense, useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 dayjs.locale("id");
 
@@ -167,92 +168,94 @@ function ListInvoice() {
   };
 
   return (
-    <div className="flex flex-col gap-[38px]">
-      <div className="flex justify-between">
-        <h2
-          className={`text-[#1C2434] text-[26px] leading-[30px] ${openSans.className} font-semibold`}
-        >
-          My Invoices
-        </h2>
-        <div className="flex gap-6">
-          <FormControl className="w-[216px]" variant="outlined" size="small">
-            <Controller
-              name="search"
-              control={form.control}
-              render={({ field }) => (
-                <OutlinedInput
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e.target.value);
-                    debounce(() =>
+    <Suspense fallback={<Loading />}>
+      <div className="flex flex-col gap-[38px]">
+        <div className="flex justify-between">
+          <h2
+            className={`text-[#1C2434] text-[26px] leading-[30px] ${openSans.className} font-semibold`}
+          >
+            My Invoices
+          </h2>
+          <div className="flex gap-6">
+            <FormControl className="w-[216px]" variant="outlined" size="small">
+              <Controller
+                name="search"
+                control={form.control}
+                render={({ field }) => (
+                  <OutlinedInput
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e.target.value);
+                      debounce(() =>
+                        router.push(
+                          `${currentPath}?${getQueryString(form.getValues())}`
+                        )
+                      );
+                    }}
+                    placeholder="Search"
+                    className="!rounded-lg bg-white"
+                    sx={noBorder}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <Image
+                          src={search}
+                          width={18}
+                          height={18}
+                          alt="search-icon"
+                        />
+                      </InputAdornment>
+                    }
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl className="w-[135px]" size="small">
+              <Controller
+                name="status"
+                control={form.control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e.target.value);
                       router.push(
                         `${currentPath}?${getQueryString(form.getValues())}`
-                      )
-                    );
-                  }}
-                  placeholder="Search"
-                  className="!rounded-lg bg-white"
-                  sx={noBorder}
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <Image
-                        src={search}
-                        width={18}
-                        height={18}
-                        alt="search-icon"
-                      />
-                    </InputAdornment>
-                  }
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl className="w-[135px]" size="small">
-            <Controller
-              name="status"
-              control={form.control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e.target.value);
-                    router.push(
-                      `${currentPath}?${getQueryString(form.getValues())}`
-                    );
-                  }}
-                  displayEmpty
-                  sx={noBorder}
-                  className="!rounded-lg bg-white"
-                  renderValue={(selected) => {
-                    if (!selected) {
-                      return (
-                        <span className="text-[#a2a2a2] font-light text-sm">
-                          All status
-                        </span>
                       );
-                    }
-                    return selected;
-                  }}
-                >
-                  {["Paid", "Unpaid", "Pending"].map((item) => (
-                    <MenuItem key={item} value={item}>
-                      {item}
-                    </MenuItem>
-                  ))}
-                </Select>
-              )}
-            />
-          </FormControl>
+                    }}
+                    displayEmpty
+                    sx={noBorder}
+                    className="!rounded-lg bg-white"
+                    renderValue={(selected) => {
+                      if (!selected) {
+                        return (
+                          <span className="text-[#a2a2a2] font-light text-sm">
+                            All status
+                          </span>
+                        );
+                      }
+                      return selected;
+                    }}
+                  >
+                    {["Paid", "Unpaid", "Pending"].map((item) => (
+                      <MenuItem key={item} value={item}>
+                        {item}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+            </FormControl>
+          </div>
         </div>
-      </div>
 
-      <Paper
-        className="p-[30px] text-left border border-regga bg-white"
-        elevation={3}
-      >
-        <Table data={getFilteredInvoices} columns={columnns as ColumnDef} />
-      </Paper>
-    </div>
+        <Paper
+          className="p-[30px] text-left border border-regga bg-white"
+          elevation={3}
+        >
+          <Table data={getFilteredInvoices} columns={columnns as ColumnDef} />
+        </Paper>
+      </div>
+    </Suspense>
   );
 }
 
