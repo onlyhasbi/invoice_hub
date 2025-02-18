@@ -67,7 +67,7 @@ function ListInvoice() {
             );
 
             for (const [key, filterValue] of filterEntries) {
-              if (!itemLower[key].startsWith(filterValue.toLowerCase())) {
+              if (!itemLower[key].includes(filterValue.toLowerCase())) {
                 return false;
               }
             }
