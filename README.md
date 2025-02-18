@@ -30,3 +30,5 @@ bun dev
 
 ### Note:
 When add new invoice it will always success. to make the result of promises generate randomly, please open the comment on `line code 35` on this path : `src/hooks/fakePromise.ts`
+
+Resource : https://www.figma.com/design/JgZrN7zuHEr5TlnuApwuyD/FE-Engineer-Challenge---Nabitu?node-id=0-1&p=f&t=Ms7QdiLjPnF5ZdQi-0
