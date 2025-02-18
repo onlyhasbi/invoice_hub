@@ -1,11 +1,10 @@
-```markdown
+
 ## Getting Started
 
-###Requirement:
+Requirement:
 - Node >= 18
 
 First, run the development server:
-
 ```bash
 # first
 npm install
@@ -21,14 +20,13 @@ bun dev
 
 ### Features:
 - **Create Invoice**
-  - Invoice number generated automatically
-  - Amount formatting to Rupiah currency
+  - [x]  Invoice number generated automatically
+  - [x]  Amount formatting to Rupiah currency
 - **Invoice List**
-  - Filtering by invoice name or status
-  - Delete and update invoice
+  - [x]  Filtering by invoice name or status
+  - [x]  Delete and update invoice
 - **Change Theme**
-```
 
-Note:
-   - When add new invoice it will always success. to make the result of promises generate randomly
-     please open the comment on line code 35 on this path : src/hooks/fakePromise.ts
+
+### Note:
+When add new invoice it will always success. to make the result of promises generate randomly, please open the comment on `line code 35` on this path : `src/hooks/fakePromise.ts`
