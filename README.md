@@ -1,7 +1,7 @@
 ```markdown
 ## Getting Started
 
-**Requirement:**
+###Requirement:
 - Node >= 18
 
 First, run the development server:
@@ -28,3 +28,8 @@ bun dev
   - Delete and update invoice
 - **Change Theme**
 ```
+
+Note:
+   - Filtering by invoice name only work from start of invoice name
+   - When add new invoice it will always success. to make the result of promise generate randomly
+     please open the comment line code on this path : src/hooks/fakePromise.ts line-35
