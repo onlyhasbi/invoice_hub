@@ -30,6 +30,5 @@ bun dev
 ```
 
 Note:
-   - Filtering by invoice name only work from start of invoice name
    - When add new invoice it will always success. to make the result of promises generate randomly
      please open the comment on line code 35 on this path : src/hooks/fakePromise.ts
