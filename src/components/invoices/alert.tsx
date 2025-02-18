@@ -30,11 +30,11 @@ function Alert({ status, title, message, isVisible }: Props) {
   };
 
   useEffect(() => {
-    let visibleTimeout: NodeJS.Timeout;
-    visibleTimeout = setTimeout(() => {
+    const visibleTimeout = setTimeout(() => {
       setVisible(!visible);
     }, 3000);
     return () => clearTimeout(visibleTimeout);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
   if (!visible) {

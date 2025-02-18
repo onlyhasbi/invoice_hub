@@ -4,7 +4,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import React from "react";
 import Message from "./message";
-import { Noop } from "react-hook-form";
 
 type Props = {
   label?: string;
