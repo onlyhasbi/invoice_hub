@@ -17,6 +17,8 @@ const config: Config = {
         softBlue: "#F1F5F9",
         reggaLight: "#EFF4FB",
         regga: "#E2E8F0",
+        headBlue: "#F7F9FC",
+        headNavy: "#1C2434"
       },
     },
   },

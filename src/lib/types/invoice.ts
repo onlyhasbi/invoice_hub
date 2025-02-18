@@ -8,3 +8,5 @@ export type Invoice = {
 
 
 export type PromiseStatus = "success" | "error";
+
+export type ActionType = 'add' | 'update' | 'delete'

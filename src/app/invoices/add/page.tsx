@@ -19,37 +19,75 @@ import Date from "@/src/components/invoices/date";
 import Message from "@/src/components/invoices/message";
 import { addInvoiceMessage } from "@/src/constants/message";
 import useFakePromise from "@/src/hooks/fakePromise";
+import useStorage from "@/src/hooks/useStorage";
 import { addInvoiceSchema } from "@/src/lib/schemas/addInvoice";
 import { Invoice, PromiseStatus } from "@/src/lib/types/invoice";
 import { getInvoiceNumber } from "@/src/utils/generateInvoiceNumber";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-const defaultValues = {
-  name: "",
-  due_date: "",
-  status: "",
-  invoice_number: `INV-${getInvoiceNumber()}`,
-  amount: "",
-};
-
 function AddInvoice() {
+  const { invoices } = useStorage();
+  const searchParams = useSearchParams();
+  const invoice_number = searchParams.get("invoice_number");
+  const newInvoiceNumber = `INV-${getInvoiceNumber()}`;
+
+  const defaultValues = {
+    name: "",
+    due_date: "",
+    status: "",
+    invoice_number: newInvoiceNumber,
+    amount: "",
+  };
+
   const form = useForm<Invoice>({
-    defaultValues,
+    defaultValues: defaultValues,
     resolver: zodResolver(addInvoiceSchema),
   });
 
   const { mutate, isLoading, status } = useFakePromise();
 
   const onSubmit: SubmitHandler<Invoice> = async (values) => {
-    await mutate(values);
+    if (invoice_number) {
+      await mutate(values, "update");
+    } else {
+      await mutate(values, "add");
+    }
   };
 
   useEffect(() => {
     if (status) {
       form.reset();
+      form.setValue("invoice_number", newInvoiceNumber);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
+
+  useEffect(() => {
+    let foundInvoice: Invoice | undefined;
+    if (invoice_number) {
+      foundInvoice = invoices.find(
+        (item) => item.invoice_number === invoice_number
+      );
+    }
+    if (foundInvoice) {
+      const fieldsToUpdate = [
+        "name",
+        "amount",
+        "status",
+        "due_date",
+        "invoice_number",
+      ];
+      fieldsToUpdate.forEach((field) => {
+        form.setValue(
+          field as keyof Invoice,
+          foundInvoice[field as keyof Invoice]
+        );
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [invoice_number, invoices]);
 
   return (
     <div className="flex flex-col gap-[38px]">

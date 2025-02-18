@@ -10,3 +10,5 @@ export * as arrowDown from "./arrow-down.svg";
 export * as check from "./check.svg";
 export * as close from "./close.svg";
 export * as search from "./search.svg";
+export * as hamburger from "./hamburger.svg";
+export * as nodata from "./nodata.svg";

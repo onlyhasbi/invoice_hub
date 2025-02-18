@@ -1,31 +1,41 @@
 import { useEffect, useState } from "react";
-import { Invoice, PromiseStatus } from "../lib/types/invoice";
+import { ActionType, Invoice } from "../lib/types/invoice";
 import useStorage from "./useStorage";
 
 const useFakePromise = () => {
-  const { setInvoices } = useStorage();
+  const { setInvoices, updateInvoices } = useStorage();
   const [state, setState] = useState({
     isLoading: false,
     success: false,
     error: false,
   });
 
-  const handleMutate = async (value: Invoice) => {
+  const handleMutate = async (value: Invoice, type: ActionType) => {
     if (value) {
-      await handlePromise(value);
+      switch (type) {
+        case "add": {
+          await handlePromise(() => setInvoices(value));
+          break;
+        }
+        case "update": {
+          await handlePromise(() => updateInvoices(value));
+          break;
+        }
+      }
     }
   };
 
   let promiseTimeout: NodeJS.Timeout;
 
-  const handlePromise = (invoiceData: Invoice) =>
+  const handlePromise = (execute: () => void) =>
     new Promise<void>((resolve, reject) => {
       setState({ isLoading: true, success: false, error: false });
 
       promiseTimeout = setTimeout(() => {
-        const shouldResolve = Math.random() < 0.5; //change this to make it success or error
+        // const shouldResolve = Math.random() < 0.5; //change this to make it success or error
+        const shouldResolve = true;
         if (shouldResolve) {
-          setInvoices(invoiceData);
+          execute();
           resolve();
           setState({ isLoading: false, success: true, error: false });
         } else {
@@ -37,6 +47,7 @@ const useFakePromise = () => {
 
   useEffect(() => {
     return () => clearTimeout(promiseTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
