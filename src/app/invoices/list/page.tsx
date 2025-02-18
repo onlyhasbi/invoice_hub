@@ -22,11 +22,13 @@ import {
   Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import "dayjs/locale/id";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Fragment, Suspense, useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+dayjs.extend(customParseFormat);
 dayjs.locale("id");
 
 function ListInvoice() {
@@ -101,9 +103,7 @@ function ListInvoice() {
       minWidth: 120,
       align: "left",
       format: (value: string) =>
-        dayjs(value, { format: "DD/MM/YYYY", locale: "id" })?.format(
-          "MMM DD,YYYY"
-        ),
+        dayjs(value, "DD/MM/YYYY")?.format("MMM DD,YYYY"),
     },
     {
       id: "status",
