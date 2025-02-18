@@ -51,7 +51,7 @@ export default function Table({
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  className="!bg-headBlue !font-semibold !text-headNavy"
+                  className="!bg-headBlue !font-medium !text-headNavy !border-b-0"
                   style={{
                     minWidth: column.minWidth,
                   }}

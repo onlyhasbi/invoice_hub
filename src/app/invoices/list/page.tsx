@@ -92,7 +92,7 @@ function ListInvoice() {
         return (
           <div className="flex flex-col">
             <h3 className="text-[#1C2434] text-[16px]">{name}</h3>
-            <p className="text-[#64748B] font-semibold text-sm">{invoice}</p>
+            <p className="text-[#64748B] text-sm">{invoice}</p>
           </div>
         );
       },
